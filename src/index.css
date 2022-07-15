@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans&family=Manrope:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Finlandica:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Staatliches&display=swap');
 
 body{
   margin: 0;
@@ -19,8 +20,8 @@ body{
 .navbar p {
   padding-left: 20px;
   color: #fff;
-  font-family: 'Staatliches', cursive;
-  font-size: .9rem;
+  font-family: 'Staatliches', monospace;
+  font-size: 1rem;
   text-shadow: 3px 3px 5px black;
 }
 
@@ -42,13 +43,14 @@ body{
 
 .main {
   display: flex;
-  height: 83vh;
-  width: 99vw;
+  height: 82vh;
+  width: 98vw;
 }
 
-.selection {
+/* .selection { */
+#selection{
+  padding-top: 20px;
   margin-left: 45%;
-  padding-top: 10px;
 }
 
 #date {
@@ -58,13 +60,17 @@ body{
 }
 
 .details {
+  position: absolute;
   display: flex;
   color: #fff;
-  margin-left: -20%;
   align-items: center;
+  justify-content: center;
+  padding-bottom: -20%;
   font-size: 1.2rem;
   font-family: 'Josefin Sans', sans-serif;
   text-shadow: 5px 5px 10px #000;
+  margin-top: 8%;
+  margin-left: -8%;
 }
 
 select{
@@ -75,6 +81,7 @@ select{
   color: #444444;
   font-size: 1rem;
   border: none;
+  height: 6%;
 }
 
 .rig{

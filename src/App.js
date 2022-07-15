@@ -6,11 +6,11 @@ import Price from "./component/Price";
 function App() {
 
   return (
-    <div className="bodyContent">
+    <>
       <Nav />
       <Price />
       <Foot />
-    </div>
+    </>
   )
 }
 
