@@ -12,7 +12,8 @@ function Price() {
     const [loaded, isLoaded] = useState(0)
 
     useEffect(() => {
-        fetch("https://indianspices-api.herokuapp.com/cardamom/archieve/all")
+        fetch("https://indianspices-api.herokuapp.com/cardamom/archieve/all",{
+                headers: new Headers({'Access-Control-Allow-Origin': '*'})})
             .then(response => response.json())
             .then((data) => {
                 isLoaded(1)

@@ -13,7 +13,7 @@ function Foot(){
   return(
     <footer>
       <div className='footer'>
-        <p>© Cyril C Thomas</p>
+        <p><a href="https://twitter.com/10cyrilc/">© Cyril C Thomas</a></p>
       </div>
     </footer>
   )
