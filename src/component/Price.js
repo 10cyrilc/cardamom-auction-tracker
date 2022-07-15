@@ -1,3 +1,4 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import Typewriter from "typewriter-effect";
 
@@ -12,12 +13,11 @@ function Price() {
     const [loaded, isLoaded] = useState(0)
 
     useEffect(() => {
-        fetch("https://indianspices-api.herokuapp.com/cardamom/archieve/all",{
-                headers: new Headers({'Access-Control-Allow-Origin': '*'})})
-            .then(response => response.json())
-            .then((data) => {
-                isLoaded(1)
-                setItem(data)
+        axios.get("https://indianspices-api.herokuapp.com/cardamom/archieve/all")
+                .then(res =>{
+                    // console.log(res.data)
+                    isLoaded(1)
+                    setItem(res.data)
             }
             )
     }, [])
