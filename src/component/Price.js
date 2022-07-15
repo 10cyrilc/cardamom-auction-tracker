@@ -12,7 +12,7 @@ function Price() {
     const [loaded, isLoaded] = useState(0)
 
     useEffect(() => {
-        fetch("https://indianspices-api.herokuapp.com/cardamom/archieve")
+        fetch("https://indianspices-api.herokuapp.com/cardamom/archieve/all")
             .then(response => response.json())
             .then((data) => {
                 isLoaded(1)
