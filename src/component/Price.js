@@ -13,7 +13,7 @@ function Price() {
     const [loaded, isLoaded] = useState(0)
 
     useEffect(() => {
-        axios.get("https://indianspices-api.herokuapp.com/cardamom/archieve/all")
+        axios.get("https://indianspices-api.herokuapp.com/cardamom/archieve")
                 .then(res =>{
                     // console.log(res.data)
                     isLoaded(1)
@@ -30,10 +30,8 @@ function Price() {
         return (
             <select id="date" onChange={handleChange}>
                 <option key="none" value="getDate">Choose Date</option>
-                {/*  */}
                 {items.map(item => {
                     return (<option key={item.sl} value={item.sl}>{item.date}</option>)
-                    // 
                 })}
             </select>
         )
