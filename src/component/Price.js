@@ -12,12 +12,16 @@ function Price() {
     const [val, setValue] = useState("Select Date")
     const [loaded, isLoaded] = useState(0)
 
+    // const url = "https://indianspices-api.herokuapp.com/cardamom/archieve/all"
+    const url = "https://indianspices-api.herokuapp.com/cardamom/archieve"
+    
+
     useEffect(() => {
-        axios.get("https://indianspices-api.herokuapp.com/cardamom/archieve")
-                .then(res =>{
-                    // console.log(res.data)
-                    isLoaded(1)
-                    setItem(res.data)
+        axios.get(url)
+            .then(res => {
+                // console.log(res.data)
+                isLoaded(1)
+                setItem(res.data)
             }
             )
     }, [])
@@ -94,15 +98,17 @@ function Price() {
     if (!loaded) {
         return (
             <div className='main'>
-                <div className='load'>
-                    <Typewriter
-                        options={{
-                            strings: "Loading......",
-                            autoStart: true,
-                            loop: true
+                <div className='rect'>
+                    <div className='load'>
+                        <Typewriter
+                            options={{
+                                strings: "Loading......",
+                                autoStart: true,
+                                loop: true
 
-                        }}
-                    />
+                            }}
+                        />
+                    </div>
                 </div>
             </div>
         )
@@ -110,10 +116,12 @@ function Price() {
     else {
         return (
             <div className="main">
-                <div id='selection'>
-                    {x}
-                    <div className='details'>
-                        {p}
+                <div className='rect'>
+                    <div id='selection'>
+                        {x}
+                        <div className='details'>
+                            {p}
+                        </div>
                     </div>
                 </div>
             </div>
