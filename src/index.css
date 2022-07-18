@@ -50,6 +50,7 @@ body{
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: 1.1em;
 }
 
 
@@ -119,8 +120,8 @@ select{
   height: 6%;
 }
 
-.rig{
-  text-align: right;
+.lef{
+  text-align: left;
   padding-right: 10px;
 }
 
@@ -141,24 +142,29 @@ select{
 
 @media only screen and (max-width: 1400px){
   .details{
-    padding: 15% 1% 1% 1%;
+    padding: 15% 1% 1% 18%;
   }
 }
 
 @media only screen and (max-width: 1200px){
   .details{
-    padding: 20% 1% 1% 1%;
+    padding: 15% 1% 1% 15%;
+  }
+  .details table {
+    border-collapse: separate;
+    border-spacing: 0 1em;
   }
 }
 
 @media only screen and (max-width: 800px){
   .details{
-    padding: 25% 1% 1% 1%;
+    padding: 20% 1% 1% 10%;
   }
+  
 }
 
 @media only screen and (max-width: 500px){
   .details{
-    padding: 30% 1% 1% 1%;
+    padding: 23% 1% 1% 5%;
   }
 }

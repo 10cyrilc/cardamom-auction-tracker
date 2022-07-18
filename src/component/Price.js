@@ -53,31 +53,31 @@ function Price() {
                             <table>
                                 <tbody>
                                     <tr>
-                                        <td className='rig'>Date:</td>
+                                        <td className='lef'>Date:</td>
                                         <td>{item.date}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Auctioneer: </td>
+                                        <td className='lef'>Auctioneer: </td>
                                         <td>{item.Auctioneer}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Lots: </td>
+                                        <td className='lef'>Lots: </td>
                                         <td>{item.Lots}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Total Arrivals: </td>
+                                        <td className='lef'>Total Arrivals: </td>
                                         <td>{item.Total_Arrived}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Totaly Quantity Sold: </td>
+                                        <td className='lef'>Totaly Quantity Sold: </td>
                                         <td>{item.Qty_Sold}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Maximum Price: </td>
+                                        <td className='lef'>Maximum Price: </td>
                                         <td>{item.MaxPrice}</td>
                                     </tr>
                                     <tr>
-                                        <td className='rig'>Average Price: </td>
+                                        <td className='lef'>Average Price: </td>
                                         <td>{item.Avg_Price}</td>
                                     </tr>
                                 </tbody>
