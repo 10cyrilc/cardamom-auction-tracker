@@ -5,8 +5,8 @@
 
 ## Working Demo
 
-- Find the working demo [Here](https://cardmom-price-tracker.vercel.app/)
+- Find the working demo [Here](https://cardamom-price-tracker.vercel.app/)
 
 ## Special Thanks to
 
-* @Tibinsunny for [Indian Spices API](https://indianspices-api.herokuapp.com/)
+* [@Tibinsunny](https://github.com/Tibinsunny) for [Indian Spices API](https://github.com/Tibinsunny/indianspices-api)

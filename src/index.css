@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Josefin+Sans&family=Manrope:wght@700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Edu+VIC+WA+NT+Beginner:wght@600&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 body{
   margin: 0;
@@ -63,8 +64,8 @@ body{
 /* ___________________________________________________Main Body___________________________________________________ */
 
 .main {
-  background: url('https://i.ibb.co/7n5f9Z9/Cardamom-background.jpg');
-  background-size: contain;
+  background: url("https://i.ibb.co/QMq95G3/Cardamom-background-drop.jpg");
+  background-size: cover;
   display: flex;
   height: 83vh;
   width: 100vw;
@@ -86,12 +87,6 @@ body{
   padding: 3% 0 0 0;
 }
 
-#date {
-  background-color: #495162;
-  color: rgb(183, 255, 199);
-  outline: red solid;
-}
-
 .details {
   display: flex;
   color: #fff;
@@ -100,7 +95,7 @@ body{
   font-size: 1.2rem;
   font-family: 'Josefin Sans', sans-serif;
   text-shadow: 5px 5px 10px #000;
-  padding: 10% 1% 1% 1%;
+  padding: 0 1% 1% 1%;
 }
 
 .details table {
@@ -125,6 +120,59 @@ select{
   padding-right: 10px;
 }
 
+/* ___________________________________________________Buttons___________________________________________________ */
+
+.btn{
+  padding-top: 10%;
+}
+
+.li-btn{
+  font-family: 'Bebas Neue', cursive;
+  font-size: 1em;
+  text-shadow: 3px 3px 5px black;
+  box-shadow: 10px 10px 50px #000;
+  color: #fff;
+  padding: 20px;
+  width: 300px;
+  border: 3px solid greenyellow;
+  background: #8e8e8e;
+  cursor: pointer;
+  transition: transform 500ms ease;
+  margin: 8% 0 5% 0;
+}
+
+.li-btn:hover{
+  transform: translate(-5px, -5px);
+}
+
+.back-btn{
+  font-family: 'Bebas Neue', cursive;
+  text-shadow: 3px 3px 5px black;
+  box-shadow: 10px 10px 50px #000;
+  color: #fff;
+  padding: 20px;
+  height: 60px;
+  width: 60px;
+  border: 3px solid greenyellow;
+  border-radius: 50%;
+  background: #8e8e8e;
+  cursor: pointer;
+  transition: transform 500ms ease;
+  margin: 50px 0 50px 50px;
+}
+
+.back-btn:hover{
+  transform: translate(-5px, -5px);
+}
+
+#date {
+  background-color: #495162;
+  color: rgb(183, 255, 199);
+  outline: red solid;
+}
+
+
+
 /* ___________________________________________________Loading___________________________________________________ */
 
 .load {
@@ -140,15 +188,18 @@ select{
 
 /* ___________________________________________________Media Queries___________________________________________________ */
 
-@media only screen and (max-width: 1400px){
+@media (max-width: 1400px){
   .details{
-    padding: 15% 1% 1% 18%;
+    padding: 1% 1% 1% 18%;
+  }
+  .li-btn{
+    margin: 20% 0 5% 0;
   }
 }
 
-@media only screen and (max-width: 1200px){
+@media (max-width: 1200px){
   .details{
-    padding: 15% 1% 1% 15%;
+    padding: 1% 1% 1% 15%;
   }
   .details table {
     border-collapse: separate;
@@ -156,15 +207,18 @@ select{
   }
 }
 
-@media only screen and (max-width: 800px){
+@media (max-width: 800px){
   .details{
-    padding: 20% 1% 1% 10%;
+    padding: 1% 1% 1% 10%;
+  }
+  .li-btn{
+    margin: 30% 0 5% 0;
   }
   
 }
 
-@media only screen and (max-width: 500px){
+@media (max-width: 500px){
   .details{
-    padding: 23% 1% 1% 5%;
+    padding: 1% 1% 1% 5%;
   }
 }
