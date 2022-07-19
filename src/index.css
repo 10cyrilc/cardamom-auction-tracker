@@ -158,7 +158,7 @@ select{
   background: #8e8e8e;
   cursor: pointer;
   transition: transform 500ms ease;
-  margin: 50px 0 50px 50px;
+  margin: 2% 0 0 2%;
 }
 
 .back-btn:hover{
@@ -190,7 +190,7 @@ select{
 
 @media (max-width: 1400px){
   .details{
-    padding: 1% 1% 1% 18%;
+    padding: 10% 1% 1% 18%;
   }
   .li-btn{
     margin: 20% 0 5% 0;
@@ -199,26 +199,35 @@ select{
 
 @media (max-width: 1200px){
   .details{
-    padding: 1% 1% 1% 15%;
+    padding: 10% 1% 1% 15%;
   }
-  .details table {
-    border-collapse: separate;
-    border-spacing: 0 1em;
+  .li-btn{
+    margin: 25% 0 5% 0;
   }
+  .back-btn{
+    margin: 3% 0 0 3%;
+  }
+  
 }
 
 @media (max-width: 800px){
   .details{
-    padding: 1% 1% 1% 10%;
+    padding: 15% 1% 1% 10%;
   }
   .li-btn{
     margin: 30% 0 5% 0;
+  }
+  .back-btn{
+    margin: 4% 0 0 4%;
   }
   
 }
 
 @media (max-width: 500px){
   .details{
-    padding: 1% 1% 1% 5%;
+    padding: 15% 1% 1% 5%;
+  }
+  .back-btn{
+    margin: 5% 0 0 5%;
   }
 }
