@@ -64,7 +64,7 @@ body{
 /* ___________________________________________________Main Body___________________________________________________ */
 
 .main {
-  background: url("https://i.ibb.co/QMq95G3/Cardamom-background-drop.jpg");
+  background-image: linear-gradient(to bottom, rgba(113, 113, 113, 0.52), rgba(42, 42, 42, 0.73)), url("https://i.ibb.co/QMq95G3/Cardamom-background-drop.jpg");
   background-size: cover;
   display: flex;
   height: 83vh;
@@ -74,11 +74,10 @@ body{
 }
 
 .rect{
-  background-color: #3e4350;
   border-radius: 20px;
   width: 80%;
   height: 80%;
-  box-shadow: 20px 20px 30px #000;
+  box-shadow: 5px 5px 50px rgb(0, 0, 0);
 }
 
 #selection{
@@ -95,7 +94,7 @@ body{
   font-size: 1.4rem;
   font-family: 'Josefin Sans', sans-serif;
   text-shadow: 5px 5px 10px #000;
-  padding: 0 1% 1% 1%;
+  padding: 2% 1% 1% 1%;
 }
 
 .details table {
@@ -215,6 +214,7 @@ select{
     font-size: 1.3em;
   }
   .li-btn{
+    width: 250px;
     margin: 30% 0 5% 0;
   }
   .back-btn{
@@ -224,8 +224,12 @@ select{
 
 @media (max-width: 500px){
   .details{
-    padding: 15% 1% 1% 5%;
+    padding: 15% 2% 1% 5%;
     font-size: 1.2em;
+  }
+  .li-btn{
+    width: 150px;
+    margin: 60% 0 5% 0;
   }
   .back-btn{
     margin: 5% 0 0 5%;
