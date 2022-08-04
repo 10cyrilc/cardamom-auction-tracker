@@ -143,6 +143,7 @@ function Price() {
             <div className='main'>
                 <div className='rect'>
                     <div className='load'>
+                    <div class="lds-facebook"><div></div><div></div><div></div></div>
                         <Typewriter
                             options={{
                                 strings: "Loading......",
