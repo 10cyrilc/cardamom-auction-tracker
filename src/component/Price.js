@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import Typewriter from "typewriter-effect";
+// import Typewriter from "typewriter-effect";
 import { FaAngleLeft } from "react-icons/fa";
 
 function Price() {
@@ -144,13 +144,13 @@ function Price() {
                 <div className='rect'>
                     <div className='load'>
                     <div class="lds-facebook"><div></div><div></div><div></div></div>
-                        <Typewriter
+                        {/* <Typewriter
                             options={{
                                 strings: "Loading......",
                                 autoStart: true,
                                 loop: true
                             }}
-                        />
+                        /> */}
                     </div>
                 </div>
             </div>
