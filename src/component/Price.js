@@ -17,8 +17,9 @@ function Price() {
     const [show, setShow] = useState(true)
 
     // const url = "https://indianspices-api.herokuapp.com/cardamom/archieve/all"
-    const url = "https://indianspices-api.herokuapp.com/cardamom/archieve"
-    
+    // const url = "https://indianspices-api.herokuapp.com/cardamom/archieve"
+    const url = "https://tibinsunny-indianspices-api.onrender.com/cardamom/archieve"
+
 
     useEffect(() => {
         axios.get(url)
@@ -32,25 +33,31 @@ function Price() {
         setValue(String(e.target.value))
     }
 
-    const handleClick = e =>{
+    const handleClick = e => {
         setSl(e.target.value)
         setShow(false)
     }
-    const toggleValue = e =>{
+    const toggleValue = e => {
         var teg = e.target.value
         setShow(!teg)
     }
-    
+
     function Seletion() {
-        var tefd;
+        var tefd
+        if (items.length !== 0) {
+            if (items[0].date === items[1].date)
+                tefd = 0
+            else
+                tefd = items[0].date
+        }
         return (
             <select id="date" onChange={handleChange}>
                 <option key="none" value="getDate">Choose Date</option>
                 {items.map(item => {
-                    if(item.date === tefd){
+                    if (item.date === tefd) {
                         return (<option key={item.sl} value={item.date}>{item.date}</option>)
                     }
-                    else{
+                    else {
                         tefd = item.date
                     }
                     return null
@@ -59,27 +66,34 @@ function Price() {
         )
     }
 
-    function SetSL(){
+    function SetSL() {
         var tepf;
         var credf = [];
         var cref;
-        if(val !== "getDate"){
-            items.map(item =>{
-                if(val === item.date){
+        if (val !== "getDate") {
+            items.map(item => {
+                if (val === item.date) {
                     tepf = item.sl
-                    credf.push(tepf)   
+                    credf.push(tepf)
                 }
+                console.log(credf)
                 return null
             })
-    }
-    credf.map(() => {
-           cref = 
-           <div className='btn'>
-            <button className='li-btn' value={credf[0]} onClick={handleClick}>Auction 1</button><br /><br />
-            <button className='li-btn' value={credf[1]} onClick={handleClick}>Auction 2</button>     
-           </div>
-           return null
-        })
+        }
+        if (credf.length === 1) {
+            cref =
+                <div className='btn'>
+                    <button className='li-btn' value={credf[0]} onClick={handleClick}>Auction 1</button><br /><br />
+                </div>
+        }
+        else {
+
+            cref =
+                <div className='btn'>
+                    <button className='li-btn' value={credf[0]} onClick={handleClick}>Auction 1</button><br /><br />
+                    <button className='li-btn' value={credf[1]} onClick={handleClick}>Auction 2</button>
+                </div>
+        }
         return cref
     }
 
@@ -143,7 +157,7 @@ function Price() {
             <div className='main'>
                 <div className='rect'>
                     <div className='load'>
-                    <div class="lds-facebook"><div></div><div></div><div></div></div>
+                        <div className="lds-facebook"><div></div><div></div><div></div></div>
                         {/* <Typewriter
                             options={{
                                 strings: "Loading......",
@@ -160,20 +174,20 @@ function Price() {
         return (
             <div className="main">
                 <div className='rect'>
-                    {show?
-                    <div id='selection'>
-                        {x}
-                        {SetSL()}
-                    </div>
-                    :null}
-                    {!show?
-                    <>
-                        <button className='back-btn' value={show} onClick={toggleValue}><FaAngleLeft /></button>
-                        <div className='details'>
-                            {p}
-                    </div>
-                    </>
-                    :null}
+                    {show ?
+                        <div id='selection'>
+                            {x}
+                            {SetSL()}
+                        </div>
+                        : null}
+                    {!show ?
+                        <>
+                            <button className='back-btn' value={show} onClick={toggleValue}><FaAngleLeft /></button>
+                            <div className='details'>
+                                {p}
+                            </div>
+                        </>
+                        : null}
                 </div>
             </div>
         )
