@@ -1,0 +1,3 @@
+User-agent: * Allow: / Disallow: /private/
+
+Sitemap: https://auction-tracker.10cyrilc.in/sitemap.xml
