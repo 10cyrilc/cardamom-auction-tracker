@@ -103,7 +103,7 @@ const AuctionDetails = ({auction, onBack}: AuctionDetailsProps) => (
                                 <BarChart3 className="w-5 h-5 text-purple-600"/>
                             </div>
                         </div>
-                        <p className="text-3xl font-bold text-purple-600">{auction.type}</p>
+                        <p className="text-3xl font-bold text-purple-600 capitalize">{auction.type}</p>
                         <p className="text-sm text-gray-500 mt-1">session type</p>
                     </div>
                 </div>

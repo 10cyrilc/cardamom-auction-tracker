@@ -27,7 +27,7 @@ const AuctionSelector = ({ auctions, onAuctionSelect }: AuctionSelectorProps) =>
                                     <Database className="w-5 h-5 text-emerald-600" />
                                 </div>
                                 <div>
-                                    <h4 className="font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">
+                                    <h4 className="capitalize font-semibold text-gray-900 group-hover:text-emerald-700 transition-colors">
                                         {auction.type} Auction
                                     </h4>
                                     <p className="text-sm text-gray-500">Auction #{index + 1}</p>
