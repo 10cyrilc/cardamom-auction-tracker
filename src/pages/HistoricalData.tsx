@@ -1,56 +1,23 @@
-import React, {useCallback, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import {Area, AreaChart, Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis} from "recharts";
+import type {AuctionData} from "../types/AuctionData";
+import {API_URL} from "../constants";
+import axios from "axios";
 
-interface AuctionData {
-    sl: number;
+interface ChartDataItem {
     date: string;
-    Auctioneer: string;
-    Lots: string;
-    Total_Arrived: string;
-    Qty_Sold: string;
-    MaxPrice: string;
-    Avg_Price: string;
-    type: string;
+    totalArrived: number;
+    totalSold: number;
+    avgPrice: number;
+    maxPrice: number;
+    count: number;
+    sellRate: number;
 }
 
-// Simulated large dataset - in real app this would come from API
-const generateHistoricalData = (): AuctionData[] => {
-    const data: AuctionData[] = [];
-    const auctioneers = [
-        "THE CARDAMOM PLANTERS MARKETING CO-OPERATIVE SOCIETY LIMITED",
-        "SOUTH INDIAN CARDAMOM ONLINE AUCTION PRIVATE LIMITED",
-        "KERALA CARDAMOM PROCESSING & MARKETING CORPORATION LIMITED",
-        "IDUKKI CARDAMOM PLANTERS SOCIETY"
-    ];
+const ITEMS_PER_PAGE = 10;
 
-    const types = ["small", "large", "medium"];
-
-    for (let i = 1; i <= 100; i++) { // Simulating 100 entries for demo
-        const date = new Date(2025, 0, 1 + Math.floor(Math.random() * 365));
-        const dateStr = date.toLocaleDateString('en-GB');
-
-        for (let j = 0; j < Math.floor(Math.random() * 4) + 1; j++) {
-            data.push({
-                sl: data.length + 1,
-                date: dateStr,
-                Auctioneer: auctioneers[Math.floor(Math.random() * auctioneers.length)],
-                Lots: String(Math.floor(Math.random() * 150) + 20),
-                Total_Arrived: String((Math.random() * 30000 + 5000).toFixed(1)),
-                Qty_Sold: String((Math.random() * 25000 + 4000).toFixed(1)),
-                MaxPrice: String((Math.random() * 1500 + 1500).toFixed(2)),
-                Avg_Price: String((Math.random() * 1000 + 1500).toFixed(2)),
-                type: types[Math.floor(Math.random() * types.length)]
-            });
-        }
-    }
-
-    return data.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-};
-
-const ITEMS_PER_PAGE = 20;
-
-const ScalableAuctionDashboard: React.FC = () => {
-    const [historicalData] = useState<AuctionData[]>(generateHistoricalData());
+const HistoricalData: React.FC = () => {
+    const [historicalData, setHistoricalData] = useState<AuctionData[]>([]);
     const [currentPage, setCurrentPage] = useState(1);
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedDateRange, setSelectedDateRange] = useState<'7d' | '30d' | '90d' | 'all'>('30d');
@@ -58,12 +25,32 @@ const ScalableAuctionDashboard: React.FC = () => {
     const [selectedType, setSelectedType] = useState<string>('all');
     const [sortField, setSortField] = useState<keyof AuctionData>('date');
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('desc');
+    const [loading, setLoading] = useState<boolean>(false);
+    const [error, setError] = useState<string | null>(null);
 
-    // Memoized filtered and sorted data
+    const apiUrl: string = `${API_URL}/cardamom/archieve/all`;
+
+    useEffect(() => {
+        const fetchHistoricalData = async () => {
+            setLoading(true);
+            setError(null);
+            try {
+                const response = await axios.get<AuctionData[]>(apiUrl);
+                setHistoricalData(response.data);
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+            } catch (_err) {
+                setError("Error fetching historical data. Please try again later.");
+            } finally {
+                setLoading(false);
+            }
+        };
+        fetchHistoricalData();
+    }, []);
+
+
     const filteredData = useMemo(() => {
         let filtered = historicalData;
 
-        // Date range filter
         if (selectedDateRange !== 'all') {
             const days = parseInt(selectedDateRange);
             const cutoffDate = new Date();
@@ -92,15 +79,18 @@ const ScalableAuctionDashboard: React.FC = () => {
 
         // Sort
         filtered.sort((a, b) => {
-            let aVal: any = a[sortField];
-            let bVal: any = b[sortField];
+            let aVal: string | number | Date;
+            let bVal: string | number | Date;
 
             if (sortField === 'date') {
-                aVal = new Date(aVal);
-                bVal = new Date(bVal);
+                aVal = new Date(a.date);
+                bVal = new Date(b.date);
             } else if (['Lots', 'Total_Arrived', 'Qty_Sold', 'MaxPrice', 'Avg_Price'].includes(sortField)) {
-                aVal = parseFloat(aVal);
-                bVal = parseFloat(bVal);
+                aVal = parseFloat(a[sortField] as string);
+                bVal = parseFloat(b[sortField] as string);
+            } else {
+                aVal = a[sortField] as string;
+                bVal = b[sortField] as string;
             }
 
             if (sortDirection === 'asc') {
@@ -119,9 +109,7 @@ const ScalableAuctionDashboard: React.FC = () => {
         return filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
     }, [filteredData, currentPage]);
 
-    // Aggregated data for charts
     const chartData = useMemo(() => {
-        // Group by date and aggregate
         const grouped = filteredData.reduce((acc, auction) => {
             if (!acc[auction.date]) {
                 acc[auction.date] = {
@@ -140,15 +128,15 @@ const ScalableAuctionDashboard: React.FC = () => {
             acc[auction.date].maxPrice = Math.max(acc[auction.date].maxPrice, parseFloat(auction.MaxPrice));
             acc[auction.date].count += 1;
             return acc;
-        }, {} as Record<string, any>);
+        }, {} as Record<string, ChartDataItem>);
 
-        return Object.values(grouped).map((item: any) => ({
+        return Object.values(grouped).map((item) => ({
             ...item,
             avgPrice: Math.round(item.avgPrice / item.count),
             sellRate: Math.round((item.totalSold / item.totalArrived) * 100),
             totalArrived: Math.round(item.totalArrived),
             totalSold: Math.round(item.totalSold)
-        })).sort((a: any, b: any) => new Date(a.date).getTime() - new Date(b.date).getTime());
+        })).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
     }, [filteredData]);
 
     // Summary statistics
@@ -181,13 +169,27 @@ const ScalableAuctionDashboard: React.FC = () => {
 
     const totalPages = Math.ceil(filteredData.length / ITEMS_PER_PAGE);
     const uniqueAuctioneers = [...new Set(historicalData.map(item => item.Auctioneer))];
-    const uniqueTypes = [...new Set(historicalData.map(item => item.type))];
 
     const formatCurrency = (value: number) => `₹${value.toLocaleString()}`;
     const formatWeight = (value: number) => `${value.toLocaleString()} kg`;
 
+    if (loading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-lg font-semibold text-green-600">Loading...</div>
+            </div>
+        );
+    }
+
+    if (error) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <div className="text-lg font-semibold text-red-600">{error}</div>
+            </div>
+        );
+    }
     return (
-        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50">
+        <div className="min-h-screen bg-gradient-to-br from-green-50 to-blue-50 mt-20">
             {/* Header */}
             <header className="bg-white shadow-sm border-b sticky top-0 z-10">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
@@ -213,7 +215,7 @@ const ScalableAuctionDashboard: React.FC = () => {
                             <select
                                 value={selectedDateRange}
                                 onChange={(e) => {
-                                    setSelectedDateRange(e.target.value as any);
+                                    setSelectedDateRange(e.target.value as '7d' | '30d' | '90d' | 'all');
                                     setCurrentPage(1);
                                 }}
                                 className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-green-500"
@@ -238,9 +240,7 @@ const ScalableAuctionDashboard: React.FC = () => {
                                 <option value="all">All Auctioneers</option>
                                 {uniqueAuctioneers.map(auctioneer => (
                                     <option key={auctioneer} value={auctioneer}>
-                                        {auctioneer.includes('CARDAMOM PLANTERS') ? 'CPMCS' :
-                                            auctioneer.includes('ONLINE AUCTION') ? 'SICOA' :
-                                                auctioneer.includes('PROCESSING') ? 'KCPMC' : 'ICPS'}
+                                        {auctioneer}
                                     </option>
                                 ))}
                             </select>
@@ -378,9 +378,7 @@ const ScalableAuctionDashboard: React.FC = () => {
                                                 </td>
                                                 <td className="px-4 py-3 text-sm text-gray-900">
                                                     <div className="font-medium">
-                                                        {auction.Auctioneer.includes('CARDAMOM PLANTERS') ? 'CPMCS' :
-                                                            auction.Auctioneer.includes('ONLINE AUCTION') ? 'SICOA' :
-                                                                auction.Auctioneer.includes('PROCESSING') ? 'KCPMC' : 'ICPS'}
+                                                        {auction.Auctioneer}
                                                     </div>
                                                     <div className="text-xs text-gray-500 capitalize">
                                                         {auction.type}
@@ -521,4 +519,4 @@ const ScalableAuctionDashboard: React.FC = () => {
     );
 };
 
-export default ScalableAuctionDashboard;
+export default HistoricalData;
